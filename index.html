@@ -43,13 +43,13 @@ const permArr = [];
 
 let total = document.getElementById("total").value; 
 let size = document.getElementById("size").value; 
-console.log(total);
-console.log(size);
+//console.log(total);
+//console.log(size);
     
     //loading known 
 $("[name=kn]:checked").each(function() {
     console.log('checked',$(this).val());
-    known.push($(this).val()) //push value in array
+    known.push($(this).val() * 1) //push value in array
   })
     
 console.log(known);
