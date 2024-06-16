@@ -11,8 +11,9 @@
 
 <script>
 function resetKnown() {
+    console.log('reset');
   $("[name=kn]:checked").each(function() {
-//    console.log('checked',$(this).val());
+    console.log('reset',$(this).val());
     ($(this).checked = false); //
   })
 
