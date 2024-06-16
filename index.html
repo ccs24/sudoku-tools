@@ -1,0 +1,114 @@
+function totalf(pArr,size) {
+    var result = 0;
+    for (let i = 1; i <= size; i++) {
+        result = result + pArr[i];
+        //console.log(i,pArr[i]);
+    }
+//        console.log(result);
+    return result;
+}
+
+
+
+function echof(pArr,size) {
+    let result ="";
+    for (let i = 1; i <= size; i++) {
+        result = result + pArr[i];
+    }
+    return result;
+}
+
+
+
+
+function permute(total, size, known) {
+const returnArr = [];
+const permArr = [];
+
+
+function moduloA(permA,cyk) {
+  // [ ][ ][ ] 
+  //    cyk
+  //  1  2  3
+
+  if (permA[1]>=9) { // warunek zakończenia
+    return false;
+  } else {
+    //przesuwamy o 1 ząbek
+    permA[cyk] = permA[cyk]+1;
+//    console.log(permA);
+    
+    if (permA[cyk]>10) { //następny ząbek
+        if (cyk>1) {
+            p =permA[cyk-1];
+            permA[cyk]=p+2;
+//            console.log(p, permA[cyk]);
+            cyk--;
+              return moduloA(permA,cyk);
+        } else {
+            return false;
+        }
+      } else {
+        return true;
+      }
+    }
+}
+
+function mixperm(permA) {
+      let size = permA.length-1;
+      var i = permA[size];
+      if (size>1) {
+        p = permA[size-1]+1;
+      } else {
+        p= i;
+      }
+      for ( let j=p; j<=9; j++) {
+        permA[i]=j;
+        let x = totalf(permA,size);
+        if (x == total ) {
+          if (known.length>0) {
+            kn = 0;
+            for (let i=0; i<known.length; i++) {
+              if (permA.includes(known[i])){
+                 kn++;
+              }
+            }
+            if (kn == known.length) {
+              console.log(echof(permA,size));
+            returnArr.push(echof(permA,size));
+            }
+          } else {
+            console.log(echof(permA,size));
+            returnArr.push(echof(permA,size));
+          }
+        }
+      }
+      permA[i]=i;
+      size=permA.length-1;
+      if (size > 1) {
+        let cyk = permA.length-2;
+        //console.log(cyk);
+        if (moduloA(permA,cyk)) {
+                mixperm(permA);
+        }
+  
+      }
+}
+
+//zbuduj tablice do obliczeń
+
+for (let i=1; i<=size; i++) {
+    permArr[i] = i;
+}
+
+//  console.log(permArr);
+
+
+  mixperm(permArr);
+
+
+return returnArr;
+}
+
+// Log to console
+console.log(permute(11,2,[]));
